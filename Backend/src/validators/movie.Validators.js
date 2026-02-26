@@ -53,7 +53,7 @@ const createMovieValidator = () => {
     ]
 }
 
-export const validateMovieId = () => {
+const validateMovieId = () => {
   return [
     param("id")
       .notEmpty().withMessage("Movie ID is required")
@@ -61,7 +61,7 @@ export const validateMovieId = () => {
   ];
 };
 
-export const updateMovieValidator = () => {
+const updateMovieValidator = () => {
      return [
         body("name")
             .optional()

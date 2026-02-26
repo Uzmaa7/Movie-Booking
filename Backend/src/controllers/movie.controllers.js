@@ -1,5 +1,6 @@
 import Movie from "../models/movie.model.js";
-import { createMovieService,deleteMovieService , getMovieByIdService, updateMovieService} from "../services/movie.service.js";
+import { createMovieService,deleteMovieService , getMovieByIdService, 
+    updateMovieService, fetchMoviesService} from "../services/movie.service.js";
 
 const createMovie = async (req, res) => {
     try {
@@ -85,4 +86,33 @@ const updateMovie = async (req, res) => {
     }
 }
 
-export {createMovie, deleteMovie, getMovie, updateMovie};
+const getMovies = async (req, res) => {
+    try {
+        const response = await fetchMoviesService(req.query);
+        if(response.length === 0 ){
+            return res.status(404).json({
+                status: false,
+                message: "No such movie exist",
+                error: {},
+                data: {},
+            })
+        }
+        return res.status(200).json({
+            success:true,
+            message: "movies fetched successfully",
+            error: {},
+            data: response,
+        })
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success :  false,
+            error: error,
+            message: "Error while fetching movies.",
+            data: {},
+        })
+    }
+}
+
+export {createMovie, deleteMovie, getMovie, updateMovie, getMovies};

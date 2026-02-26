@@ -25,4 +25,15 @@ const updateMovieService = async (id, data) => {
     return movie;
 }
 
-export {createMovieService, deleteMovieService, getMovieByIdService, updateMovieService};
+const fetchMoviesService = async (filter) => {
+    let query = {}
+    if(filter.name){
+        query.name = filter.name
+    }
+    let movies = await Movie.find(query);
+    return movies;
+}
+
+export {createMovieService, deleteMovieService, getMovieByIdService, updateMovieService
+    , fetchMoviesService
+};

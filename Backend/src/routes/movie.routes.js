@@ -1,12 +1,12 @@
 import express from "express";
-import { createMovie, deleteMovie, getMovie, updateMovie } from "../controllers/movie.controllers.js";
+import { createMovie, deleteMovie, getMovie, getMovies, updateMovie } from "../controllers/movie.controllers.js";
 import { createMovieValidator , validateMovieId, updateMovieValidator} from "../validators/movie.Validators.js";
 import { validate } from "../middlewares/validator.middleware.js";
 
 
 const movieRouter = express.Router();
 
-
+// CRUD operations for Movie
 movieRouter.post("/create-movie", createMovieValidator(), validate, createMovie);
 
 movieRouter.get("/:id",validateMovieId(), validate, getMovie);
@@ -17,5 +17,6 @@ movieRouter.put("/:id",validateMovieId(), updateMovieValidator, validate,  updat
 
 movieRouter.patch("/:id",validateMovieId(), updateMovieValidator, validate, updateMovie);
 
+movieRouter.get("/", getMovies)
 export default movieRouter;
 
