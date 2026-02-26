@@ -24,6 +24,24 @@ const createMovie = async (req, res) => {
 
 const deleteMovie = async (req, res) => {
 
+    try {
+        const response = await Movie.deleteOne({_id : req.params.id});
+        return res.status(200).json({
+            success: true,
+            error: {},
+            data: response,
+            message: "Successfully deleted movie ",
+        })
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success: true,
+            error: error,
+            data: {},
+            message: "Error while deleting movie."
+        })
+    }
 }
 
 const getMovie = async (req, res) => {
