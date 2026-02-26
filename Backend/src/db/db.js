@@ -8,7 +8,7 @@ dotenv.config({
 
 
 
-const connectdb = async (req, res) => {
+const connectdb = async () => {
 
     try{
     
