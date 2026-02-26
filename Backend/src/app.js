@@ -6,6 +6,7 @@ import {specs} from "./utils/swagger.js"
 
 // =====Routes imports =====================
 import movieRouter from "./routes/movie.routes.js";
+import theatreRouter from "./routes/theatre.routes.js";
 
 
 dotenv.config({
@@ -23,7 +24,8 @@ app.use(express.urlencoded({extended:true}));
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
-app.use("/api/v1/movies", movieRouter)
+app.use("/api/v1/movies", movieRouter);
+app.use("/api/v1/theatres", theatreRouter);
 
 export default app;
 
