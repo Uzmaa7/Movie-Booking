@@ -22,4 +22,28 @@ const createMovie = async (req, res) => {
     }
 }
 
-export {createMovie};
+const deleteMovie = async (req, res) => {
+
+}
+
+const getMovie = async (req, res) => {
+    try {
+        const movie = await Movie.findById(req.params.id);
+        return res.status(200).json({
+            success :  true,
+            error: {},
+            message: "Successfully fetched the movie details",
+            data: movie,
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success :  false,
+            error: error,
+            message: "Error while fetching the movie details",
+            data: {},
+        })
+    }
+}
+
+export {createMovie, deleteMovie, getMovie};

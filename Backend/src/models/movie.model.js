@@ -39,7 +39,8 @@ const movieSchema = new mongoose.Schema({
     releaseStatus : {
         type : String,
         required : true,
-        default : "Released",
+        enum: ["RELEASED", "COMING_SOON", "BLOCKED"],
+        default: "RELEASED",
     },
     
 }, {timestamps:true});
