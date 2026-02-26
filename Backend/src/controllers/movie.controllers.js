@@ -1,9 +1,9 @@
 import Movie from "../models/movie.model.js";
-import { createMovie,deleteMovie , getMovieById} from "../services/movie.service.js";
+import { createMovieService,deleteMovieService , getMovieByIdService, updateMovieService} from "../services/movie.service.js";
 
 const createMovie = async (req, res) => {
     try {
-        const movie = await createMovie(req.body);
+        const movie = await createMovieService(req.body);
 
         return res.status(201).json({
             success: true,
@@ -26,7 +26,7 @@ const createMovie = async (req, res) => {
 const deleteMovie = async (req, res) => {
 
     try {
-        const response = await deleteMovie(req.params.id);
+        const response = await deleteMovieService(req.params.id);
         return res.status(200).json({
             success: true,
             error: {},
@@ -47,7 +47,7 @@ const deleteMovie = async (req, res) => {
 
 const getMovie = async (req, res) => {
     try {
-        const movie = await getMovieById(req.params.id);
+        const movie = await getMovieByIdService(req.params.id);
         return res.status(200).json({
             success :  true,
             error: {},
@@ -65,4 +65,24 @@ const getMovie = async (req, res) => {
     }
 }
 
-export {createMovie, deleteMovie, getMovie};
+const updateMovie = async (req, res) => {
+    try {
+        const movie = await updateMovieService(req.params.id, req.body);
+        return res.status(200).json({
+            success: true,
+            error: {},
+            message : "Movie updated successfully",
+            data: movie,
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success :  false,
+            error: error,
+            message: "Error while updating the movie.",
+            data: {},
+        })
+    }
+}
+
+export {createMovie, deleteMovie, getMovie, updateMovie};
