@@ -1,8 +1,9 @@
 import Movie from "../models/movie.model.js";
+import { createMovie,deleteMovie , getMovieById} from "../services/movie.service.js";
 
 const createMovie = async (req, res) => {
     try {
-        const movie = await Movie.create(req.body);
+        const movie = await createMovie(req.body);
 
         return res.status(201).json({
             success: true,
@@ -25,7 +26,7 @@ const createMovie = async (req, res) => {
 const deleteMovie = async (req, res) => {
 
     try {
-        const response = await Movie.deleteOne({_id : req.params.id});
+        const response = await deleteMovie(req.params.id);
         return res.status(200).json({
             success: true,
             error: {},
@@ -46,7 +47,7 @@ const deleteMovie = async (req, res) => {
 
 const getMovie = async (req, res) => {
     try {
-        const movie = await Movie.findById(req.params.id);
+        const movie = await getMovieById(req.params.id);
         return res.status(200).json({
             success :  true,
             error: {},
