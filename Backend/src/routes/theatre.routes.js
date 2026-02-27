@@ -17,6 +17,6 @@ theatreRouter.get("/", getAllTheatres);
 
 theatreRouter.delete("/:id",idValidator(), validate, deleteTheatre);
 
-theatreRouter.put("/:id", updateATheatre);
+theatreRouter.patch("/:id",idValidator(), validate, updateATheatre);
 
 export default theatreRouter;

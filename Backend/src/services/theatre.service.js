@@ -37,4 +37,19 @@ const deleteTheatreService = async(id) => {
     return deletedDoc;
 }
 
-export {createTheatreService, getATheatreService, getAllTheatresService, deleteTheatreService};
+const updateATheatreService = async(id, data) => {
+    const updatedDoc = await Theatre.findByIdAndUpdate(
+        id,
+        { $set: data }, // $set ensures only specific fields in 'data' are updated);
+        {new : true}
+    );
+
+    if(!updatedDoc){
+        throw new ApiError(404, "Theatre not found for updating")
+    }
+
+    return updatedDoc;
+
+}
+
+export {createTheatreService, getATheatreService, getAllTheatresService, deleteTheatreService, updateATheatreService};
