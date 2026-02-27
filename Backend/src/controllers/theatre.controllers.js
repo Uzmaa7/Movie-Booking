@@ -1,4 +1,4 @@
-import { createTheatreService, getATheatreService } from "../services/theatre.service.js";
+import { createTheatreService, getAllTheatresService, getATheatreService } from "../services/theatre.service.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
@@ -24,9 +24,13 @@ const getATheatre = asyncHandler(async (req, res) => {
     )
 })
 
-const getAllTheatres = async (req, res) => {
+const getAllTheatres = asyncHandler(async (req, res) => {
+    const allTheatres = await getAllTheatresService();
 
-}
+    return res.status(200).json(
+        new ApiResponse(200, allTheatres, "All theatres fetched successfully")
+    )
+})
 
 const deleteTheatre = async (req, res) => {
 

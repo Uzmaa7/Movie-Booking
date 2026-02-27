@@ -4,7 +4,7 @@ import { createTheatre, getATheatre, getAllTheatres,  deleteTheatre, updateAThea
 } from "../controllers/theatre.controllers.js";
 
 import { createTheatreValidator, idValidator } from "../validators/theatre.Validators.js";
-import validate from "../middlewares/validator.middleware.js"
+import {validate} from "../middlewares/validator.middleware.js"
 
 const theatreRouter = express.Router();
 

@@ -21,4 +21,11 @@ const getATheatreService = async(id) => {
    return response;
 }
 
-export {createTheatreService, getATheatreService};
+const getAllTheatresService = async() => {
+    // Find hamesha array dega, isliye yahan check lagane ki zaroorat nahi hai
+    const allTheatres = await Theatre.find();
+
+    return allTheatres;
+}
+
+export {createTheatreService, getATheatreService, getAllTheatresService};
