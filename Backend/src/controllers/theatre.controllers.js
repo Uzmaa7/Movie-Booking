@@ -1,4 +1,6 @@
-import { createTheatreService, getAllTheatresService, getATheatreService } from "../services/theatre.service.js";
+import { createTheatreService, getAllTheatresService, getATheatreService,
+    deleteTheatreService
+ } from "../services/theatre.service.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
@@ -32,9 +34,15 @@ const getAllTheatres = asyncHandler(async (req, res) => {
     )
 })
 
-const deleteTheatre = async (req, res) => {
+const deleteTheatre =  asyncHandler(async (req, res) => {
+    const {id} = req.params;
+    const deletedTheatre = await deleteTheatreService(id);
 
-}
+    return res.status(200).json(
+        new ApiResponse(200, deletedTheatre, "Theatre deleted successfully")
+    )
+
+})
 
 const updateATheatre = async (req, res) => {
 

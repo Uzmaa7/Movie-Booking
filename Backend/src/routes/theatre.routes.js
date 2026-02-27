@@ -15,7 +15,7 @@ theatreRouter.get("/:id",idValidator(), validate, getATheatre);
 
 theatreRouter.get("/", getAllTheatres);
 
-theatreRouter.delete("/:id", deleteTheatre);
+theatreRouter.delete("/:id",idValidator(), validate, deleteTheatre);
 
 theatreRouter.put("/:id", updateATheatre);
 

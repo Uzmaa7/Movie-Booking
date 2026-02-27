@@ -28,4 +28,13 @@ const getAllTheatresService = async() => {
     return allTheatres;
 }
 
-export {createTheatreService, getATheatreService, getAllTheatresService};
+const deleteTheatreService = async(id) => {
+    const deletedDoc = await Theatre.findByIdAndDelete(id);
+
+    if(!deletedDoc){
+        throw new ApiError(404, "Theatre not found or already deleted")
+    }
+    return deletedDoc;
+}
+
+export {createTheatreService, getATheatreService, getAllTheatresService, deleteTheatreService};
