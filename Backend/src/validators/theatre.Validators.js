@@ -1,4 +1,4 @@
-import {body, params, query} from "express-validator";
+import {body, param, query} from "express-validator";
 
 const createTheatreValidator = () => {
     return [
@@ -32,4 +32,12 @@ const createTheatreValidator = () => {
     ]
 }
 
-export {createTheatreValidator};
+const idValidator = () => {
+    return[
+    param("id")
+    .isMongoId().withMessage("Invalid id")
+    .notEmpty().withMessage("id is required")
+    ]
+    
+}
+export {createTheatreValidator, idValidator};

@@ -1,28 +1,28 @@
-import { createTheatreService } from "../services/theatre.service.js";
+import { createTheatreService, getATheatreService } from "../services/theatre.service.js";
+import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
-const createTheatre = async (req, res) => {
-    try {
+const createTheatre = asyncHandler(async (req, res) => {
+    
         const theatre = await createTheatreService(req.body);
-         return res.status(201).json({
-            success:true,
-            message: "theatre created successfully",
-            error: {},
-            data: theatre,
-        })
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            success :  false,
-            error: error.message,
-            message: "Error while creating theatre.",
-            data: {},
-        })
-    }
-}
 
-const getATheatre = async (req, res) => {
+        return res.status(201).json(
+            new ApiResponse(
+                200,
+                theatre,
+                "Theatre created successfully",    
+            )
+        )   
+})
 
-}
+const getATheatre = asyncHandler(async (req, res) => {
+    const theatre = await getATheatreService(req.params.id);
+
+    return res.status(200).json(
+        new ApiResponse(200, theatre, "Theatre fetched successfully")
+    )
+})
 
 const getAllTheatres = async (req, res) => {
 
