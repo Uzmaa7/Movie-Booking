@@ -23,6 +23,8 @@ const getATheatreService = async(id) => {
 
 const getAllTheatresService = async(data) => {
     let query = {};
+    let pagination = {};
+
     if(data && data.city){
         //this checks whether city is present in query params or not
         query.city = data.city;
@@ -35,8 +37,18 @@ const getAllTheatresService = async(data) => {
         //this checks whether name is present in query params or not
         query.name = data.name;
     }
+
+    if(data && data.limit){
+        pagination.limit = data.limit
+    }
+
+    if(data && data.skip){
+        let perPage = (data.limit) ? data.limit : 5;
+        pagination.skip = data.skip*perPage
+    }
     // Find hamesha array dega, isliye yahan check lagane ki zaroorat nahi hai
-    const allTheatres = await Theatre.find(query);
+    // Model.find(filter, {fields}, {limit:x, skip:y})
+    const allTheatres = await Theatre.find(query, {}, pagination);
 
     return allTheatres;
 }
