@@ -21,9 +21,22 @@ const getATheatreService = async(id) => {
    return response;
 }
 
-const getAllTheatresService = async() => {
+const getAllTheatresService = async(data) => {
+    let query = {};
+    if(data && data.city){
+        //this checks whether city is present in query params or not
+        query.city = data.city;
+    }
+    if(data && data.pincode){
+        //this checks whether pincode is present in query params or not
+        query.pincode = data.pincode;
+    }
+    if(data && data.name){
+        //this checks whether name is present in query params or not
+        query.name = data.name;
+    }
     // Find hamesha array dega, isliye yahan check lagane ki zaroorat nahi hai
-    const allTheatres = await Theatre.find();
+    const allTheatres = await Theatre.find(query);
 
     return allTheatres;
 }

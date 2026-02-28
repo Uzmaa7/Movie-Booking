@@ -27,7 +27,14 @@ const getATheatre = asyncHandler(async (req, res) => {
 })
 
 const getAllTheatres = asyncHandler(async (req, res) => {
-    const allTheatres = await getAllTheatresService();
+
+    const allTheatres = await getAllTheatresService(req.query);
+    
+    if(allTheatres.length === 0){
+        return res.status(200).json(
+            new ApiResponse(200, [], "No theatres found")
+        )
+    }
 
     return res.status(200).json(
         new ApiResponse(200, allTheatres, "All theatres fetched successfully")
@@ -53,6 +60,7 @@ const updateATheatre = asyncHandler(async (req, res) => {
     return res.status(200).json(new ApiResponse(200, updatedTheatre, "Theatre updated successfully"))
 })
 
+// (add/Remove)
 const updateMoviesInTheatres = asyncHandler(async(req, res) => {
     const {id} = req.params;
     const {movieIds, insert} = req.body;
