@@ -59,6 +59,20 @@ const getAllTheatresService = async(data) => {
     return allTheatres;
 }
 
+// check if movie A is running in Theatre B
+const checkMovieService = async(theatreId, movieId) => {
+    const isPresent = await Theatre.exists({
+        _id : theatreId,
+        movies: movieId
+    })
+
+    if(!isPresent){
+        throw new ApiError(404, "This movie is not running in the specified theatre")
+    }
+
+    return true;
+}
+
 const deleteTheatreService = async(id) => {
     const deletedDoc = await Theatre.findByIdAndDelete(id);
 
@@ -145,6 +159,7 @@ const updateMoviesInTheatresService = async(theatreId, movieIds, insert) => {
     // return updatedTheatre;
 }
 
+//List all movies running in Theatre A
 const ListAllMoviesInATheatreService = async (theatreId) => {
     
     const theatre = await Theatre.findById(theatreId)
@@ -162,4 +177,5 @@ const ListAllMoviesInATheatreService = async (theatreId) => {
 }
 
 export {createTheatreService, getATheatreService, getAllTheatresService,
-deleteTheatreService, updateATheatreService, updateMoviesInTheatresService, ListAllMoviesInATheatreService};
+deleteTheatreService, updateATheatreService, updateMoviesInTheatresService,
+ ListAllMoviesInATheatreService, checkMovieService};

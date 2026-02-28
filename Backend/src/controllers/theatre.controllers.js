@@ -1,6 +1,6 @@
 import { createTheatreService, getAllTheatresService, getATheatreService,
     deleteTheatreService, updateATheatreService, updateMoviesInTheatresService,
-    ListAllMoviesInATheatreService
+    ListAllMoviesInATheatreService,checkMovieService
  } from "../services/theatre.service.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -42,6 +42,19 @@ const getAllTheatres = asyncHandler(async (req, res) => {
     )
 })
 
+// check if movie A is running in Theatre B
+const checkMovie = asyncHandler(async(req, res) => {
+
+    const {id, movieId} = req.params;
+
+    await checkMovieService(id, movieId);
+
+    return res.status(200).json(
+        new ApiResponse(200 , {isPresent : true } , "Movie is present in given theatre")
+    )
+
+})
+
 const deleteTheatre =  asyncHandler(async (req, res) => {
     const {id} = req.params;
     const deletedTheatre = await deleteTheatreService(id);
@@ -79,4 +92,6 @@ const ListAllMoviesInATheatre = asyncHandler(async(req, res) => {
     return res.status(200).json(new ApiResponse(200, theatre, "list of all movies fetched successfully"));
 })
 
-export {createTheatre, getATheatre, getAllTheatres, deleteTheatre, updateATheatre, updateMoviesInTheatres, ListAllMoviesInATheatre};
+export {createTheatre, getATheatre, getAllTheatres,
+     deleteTheatre, updateATheatre, updateMoviesInTheatres, ListAllMoviesInATheatre,
+    checkMovie};

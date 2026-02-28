@@ -1,6 +1,7 @@
 import express from "express";
+
 import { createTheatre, getATheatre, getAllTheatres,  deleteTheatre, updateATheatre,
-updateMoviesInTheatres, ListAllMoviesInATheatre
+updateMoviesInTheatres, ListAllMoviesInATheatre, checkMovie
 } from "../controllers/theatre.controllers.js";
 
 import { createTheatreValidator, idValidator, updateMoviesInTheatresValidator } from "../validators/theatre.Validators.js";
@@ -25,6 +26,9 @@ theatreRouter.put("/:id",idValidator(), validate, updateATheatre);
 //ASSOCIATE MOVIE_THEATRE
 theatreRouter.patch("/:id/movies", idValidator(), updateMoviesInTheatresValidator(), validate, updateMoviesInTheatres);
 
-theatreRouter.get("/:id/movies", ListAllMoviesInATheatre)
+theatreRouter.get("/:id/movies", idValidator(), validate, ListAllMoviesInATheatre)
+
+// check if movie A is running in Theatre B
+theatreRouter.get("/:id/movies/:movieId", idValidator(), validate,  checkMovie);
 
 export default theatreRouter;
