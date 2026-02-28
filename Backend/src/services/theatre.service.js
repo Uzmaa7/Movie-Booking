@@ -51,5 +51,42 @@ const updateATheatreService = async(id, data) => {
     return updatedDoc;
 
 }
+// Humne .toString() Kyun Kiya?
+// Kyuki MongoDB me IDs ObjectId type me stored hoti hain,
+// lekin API se jo movieIds aate hain wo usually string hote hain.
 
-export {createTheatreService, getATheatreService, getAllTheatresService, deleteTheatreService, updateATheatreService};
+// Real Problem Kya Tha?
+
+// Example:
+// theatre.movies = [
+//    ObjectId("65f123abc...")
+// ]
+
+// movieIds = [
+//    "65f123abc..."
+// ]
+const updateMoviesInTheatresService = async(theatreId, movieIds, insert) => {
+    const theatre = await Theatre.findById(theatreId);
+    if(!theatre){
+        throw new ApiError(404, "No such theatre found for the id provided")
+    }
+    if(insert){
+        //we need to add movies
+        movieIds.forEach((movieId) => {
+            theatre.movies.push(movieId);
+        })
+    }
+    else{
+        // we need to remove movies
+        let savedMovieIds = theatre.movies;
+        movieIds.forEach((movieId) => {
+            savedMovieIds = savedMovieIds.filter((smi) => smi.toString() !== movieId.toString())
+        })
+        theatre.movies = savedMovieIds;
+    }
+    await theatre.save();
+    return theatre;
+}
+
+export {createTheatreService, getATheatreService, getAllTheatresService,
+deleteTheatreService, updateATheatreService, updateMoviesInTheatresService};
