@@ -91,26 +91,52 @@ const updateATheatreService = async(id, data) => {
 //    "65f123abc..."
 // ]
 const updateMoviesInTheatresService = async(theatreId, movieIds, insert) => {
-    const theatre = await Theatre.findById(theatreId);
-    if(!theatre){
+    const existingTheatre = await Theatre.findById(theatreId);
+    if(!existingTheatre){
         throw new ApiError(404, "No such theatre found for the id provided")
     }
-    if(insert){
-        //we need to add movies
-        movieIds.forEach((movieId) => {
-            theatre.movies.push(movieId);
-        })
+
+    const updateQuery = insert 
+    ?  {$addToSet: {movies : {$each: movieIds}}}
+    :  {$pull: {movies: {$in: movieIds}}}
+
+
+    const updatedTheatre = await Theatre.findByIdAndUpdate(theatreId, updateQuery, {new: true})
+
+    if (!updatedTheatre) {
+        throw new ApiError(404, "Theatre not found with the given ID");
     }
-    else{
-        // we need to remove movies
-        let savedMovieIds = theatre.movies;
-        movieIds.forEach((movieId) => {
-            savedMovieIds = savedMovieIds.filter((smi) => smi.toString() !== movieId.toString())
-        })
-        theatre.movies = savedMovieIds;
-    }
-    await theatre.save();
-    return theatre;
+
+    return updatedTheatre;
+
+    // if(insert){
+    //     //we need to add movies
+    //     //this code is adding multiple entries for a movies
+
+    //     // movieIds.forEach((movieId) => {
+    //     //     theatre.movies.push(movieId);
+    //     // })
+
+    //     await Theatre.updateOne(
+    //         {_id : theatreId},
+    //         {$addToSet: {movies : {$each: movieIds}}},
+    //     )
+    // }
+    // else{
+    //     // we need to remove movies
+    //     // let savedMovieIds = theatre.movies;
+    //     // movieIds.forEach((movieId) => {
+    //     //     savedMovieIds = savedMovieIds.filter((smi) => smi.toString() !== movieId.toString())
+    //     // })
+    //     // theatre.movies = savedMovieIds;
+
+    //     await Theatre.updateOne(
+    //         {_id : theatreId},
+    //         {$pull: {movies: {$in: movieIds}}}
+    //     )
+    // }
+    // const updatedTheatre = await Theatre.findById(theatreId);
+    // return updatedTheatre;
 }
 
 export {createTheatreService, getATheatreService, getAllTheatresService,
