@@ -1,3 +1,4 @@
+import Movie from "../models/movie.model.js";
 import Theatre from "../models/theatre.model.js";
 import { ApiError } from "../utils/ApiError.js";
 
@@ -36,6 +37,11 @@ const getAllTheatresService = async(data) => {
     if(data && data.name){
         //this checks whether name is present in query params or not
         query.name = data.name;
+    }
+
+    //list all the theatres in which a particlar movie is running
+    if(data && data.movieId){
+        query.movies = data.movieId; 
     }
 
     if(data && data.limit){

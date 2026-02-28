@@ -25,4 +25,6 @@ theatreRouter.put("/:id",idValidator(), validate, updateATheatre);
 //ASSOCIATE MOVIE_THEATRE
 theatreRouter.patch("/:id/movies", idValidator(), updateMoviesInTheatresValidator(), validate, updateMoviesInTheatres);
 
+
+
 export default theatreRouter;
