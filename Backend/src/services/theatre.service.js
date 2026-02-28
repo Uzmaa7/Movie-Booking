@@ -145,5 +145,21 @@ const updateMoviesInTheatresService = async(theatreId, movieIds, insert) => {
     // return updatedTheatre;
 }
 
+const ListAllMoviesInATheatreService = async (theatreId) => {
+    
+    const theatre = await Theatre.findById(theatreId)
+    .select("name movies")
+    .populate({
+        path: "movies",
+        select: "name"
+    })
+
+    if(!theatre){
+        throw new ApiError(404, "Theatre not found with given Id")
+    }
+    return theatre;
+
+}
+
 export {createTheatreService, getATheatreService, getAllTheatresService,
-deleteTheatreService, updateATheatreService, updateMoviesInTheatresService};
+deleteTheatreService, updateATheatreService, updateMoviesInTheatresService, ListAllMoviesInATheatreService};

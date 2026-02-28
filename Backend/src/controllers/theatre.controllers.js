@@ -1,5 +1,6 @@
 import { createTheatreService, getAllTheatresService, getATheatreService,
-    deleteTheatreService, updateATheatreService, updateMoviesInTheatresService
+    deleteTheatreService, updateATheatreService, updateMoviesInTheatresService,
+    ListAllMoviesInATheatreService
  } from "../services/theatre.service.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -70,4 +71,12 @@ const updateMoviesInTheatres = asyncHandler(async(req, res) => {
     return res.status(200).json(new ApiResponse(200, updatedTheatreWithMovies, "Theatre movies updated successfully"))
 })
 
-export {createTheatre, getATheatre, getAllTheatres, deleteTheatre, updateATheatre, updateMoviesInTheatres};
+//list all the movies running in a particular theatre
+const ListAllMoviesInATheatre = asyncHandler(async(req, res) => {
+    const {id} = req.params;
+
+    const theatre = await ListAllMoviesInATheatreService(id);
+    return res.status(200).json(new ApiResponse(200, theatre, "list of all movies fetched successfully"));
+})
+
+export {createTheatre, getATheatre, getAllTheatres, deleteTheatre, updateATheatre, updateMoviesInTheatres, ListAllMoviesInATheatre};

@@ -1,6 +1,6 @@
 import express from "express";
 import { createTheatre, getATheatre, getAllTheatres,  deleteTheatre, updateATheatre,
-updateMoviesInTheatres
+updateMoviesInTheatres, ListAllMoviesInATheatre
 } from "../controllers/theatre.controllers.js";
 
 import { createTheatreValidator, idValidator, updateMoviesInTheatresValidator } from "../validators/theatre.Validators.js";
@@ -25,6 +25,6 @@ theatreRouter.put("/:id",idValidator(), validate, updateATheatre);
 //ASSOCIATE MOVIE_THEATRE
 theatreRouter.patch("/:id/movies", idValidator(), updateMoviesInTheatresValidator(), validate, updateMoviesInTheatres);
 
-
+theatreRouter.get("/:id/movies", ListAllMoviesInATheatre)
 
 export default theatreRouter;
