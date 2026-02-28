@@ -40,4 +40,20 @@ const idValidator = () => {
     ]
     
 }
-export {createTheatreValidator, idValidator};
+
+const updateMoviesInTheatresValidator = () => {
+    return[
+        body("movieIds")
+        .isArray({min:1}).withMessage("movieIds must be an array and cannot be empty"),
+
+        body("movieIds.*")
+        .isMongoId().withMessage("Each ID in movieIds must be a valid Mongo ObjectId"),
+
+        body("insert")
+        .notEmpty().withMessage("Insert parameter is missing")
+         .bail()
+        .isBoolean().withMessage("Insert must be a boolean value (true/false)")
+
+    ]
+}
+export {createTheatreValidator, idValidator, updateMoviesInTheatresValidator};
