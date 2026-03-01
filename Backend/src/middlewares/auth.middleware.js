@@ -67,3 +67,11 @@ export const isClient = asyncHandler(async(req, res, next) => {
     }
     next();
 })
+
+export const isAdminOrClient = asyncHandler(async(req, res, next) => {
+    const user =  req.user;
+    if (user.userRole !== "CLIENT" && user.userRole !== "ADMIN") {
+        throw new ApiError(403, "Access Denied: User is neither a Client nor a Admin, cannot proceed with the request");
+    }
+    next();
+})
