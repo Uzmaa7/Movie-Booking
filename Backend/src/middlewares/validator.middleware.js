@@ -16,7 +16,7 @@ export const validate = (req, res, next) => {
         [err.path]: err.msg
     }));
 
-    return res.status(422).json({
+    return res.status(400).json({
         success:false,
         message: "recieved data is not valid",
         extractedError,
