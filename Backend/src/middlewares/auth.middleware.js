@@ -60,3 +60,10 @@ export const isAdmin = asyncHandler(async (req, res, next) => {
     next();
 });
 
+export const isClient = asyncHandler(async(req, res, next) => {
+    const user =  req.user;
+    if (user.userRole !== "CLIENT") {
+        throw new ApiError(403, "Access Denied: You do not have Client privileges");
+    }
+    next();
+})
