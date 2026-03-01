@@ -4,35 +4,33 @@ const userSchema = new mongoose.Schema({
     name : {
         type: String,
         required: true,
+        unique: true,
     },
 
-    username: {
+    email : {
         type: String,
         required: true,
         unique: true,
-        trim: true,
+        lowercase: true,
+        trim:true,
     },
-
-    // email: {
-
-    // },
 
     password: {
         type: String,
         required:true,
-        trim:true,
-        select: false,
+        minLength: 8,
     },
 
-    avatar : {
-        public_id: {
-            type: String,
-            required: true,
-        },
-        url :{
-            type: String,
-            required: true,
-        },
+    userRole: {
+        type: String,
+        required: true,
+        default: "CUSTOMER",
+    },
+
+    userStatus: {
+        type: String,
+        required: true,
+        default: "APPROVED"
     }
 }, {timestamps: true});
 
