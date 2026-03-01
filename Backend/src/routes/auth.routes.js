@@ -7,6 +7,7 @@ import { registerValidator,loginValidator } from "../validators/auth.Validators.
 
 const authRouter = express.Router();
 
+
 authRouter.post("/register", registerValidator(), validate, registerUser);
 
 authRouter.post("/login", loginValidator(), validate, loginUser);
