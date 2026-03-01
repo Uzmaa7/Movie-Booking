@@ -12,7 +12,7 @@ export const verifyJWT = async (req, res, next) => {
 
     try {
         const token =  req.cookies?.accessToken || req.header
-        ("Authorization")?.replace("Bearer ", "") || req.headers["x-access-token"];
+        ("Authorization")?.replace("Bearer ", "") ||  req.headers["x-access-token"];
 
     
         if(!token){
