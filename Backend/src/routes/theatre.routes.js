@@ -6,13 +6,14 @@ updateMoviesInTheatres, ListAllMoviesInATheatre, checkMovie
 
 import { createTheatreValidator, idValidator, updateMoviesInTheatresValidator } from "../validators/theatre.Validators.js";
 import {validate} from "../middlewares/validator.middleware.js"
+import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const theatreRouter = express.Router();
 
 //CRUD For Theatre
 theatreRouter.post("/create-theatre",createTheatreValidator(), validate, createTheatre);
 
-theatreRouter.get("/:id",idValidator(), validate, getATheatre);
+theatreRouter.get("/:id", verifyJWT ,idValidator(), validate, getATheatre);
 
 theatreRouter.get("/", getAllTheatres);
 
