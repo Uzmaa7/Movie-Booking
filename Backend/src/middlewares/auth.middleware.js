@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 import dotenv from "dotenv";
+import { ApiError } from "../utils/ApiError.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 
 dotenv.config({
@@ -44,3 +46,17 @@ export const verifyJWT = async (req, res, next) => {
 
     
 }
+
+
+
+
+export const isAdmin = asyncHandler(async (req, res, next) => {
+    const user =  req.user;
+
+    if (user.userRole !== "ADMIN") {
+        throw new ApiError(403, "Access Denied: You do not have Admin privileges");
+    }
+
+    next();
+});
+
