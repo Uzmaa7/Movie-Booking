@@ -75,7 +75,7 @@ const updateUserRoleOrStatusService = async (userId, data) => {
         {_id : userId},
         updateQuery,
         {new: true}
-    )
+    ).select("-password")
 
     if(!response){
         throw new ApiError(404, "No user found for the given id")
