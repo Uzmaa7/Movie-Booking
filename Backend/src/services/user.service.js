@@ -66,7 +66,7 @@ const resetPasswordService = async(oldPassword, newPassword, userId) => {
    return user
 }
 
-const updateUserRoleOrStatusService = async (data, userId) => {
+const updateUserRoleOrStatusService = async (userId, data) => {
     let updateQuery = data.userRole
     ? {userRole : data.userRole}
     : {userStatus : data.userStatus}
