@@ -44,4 +44,26 @@ const loginUserService = async (email, password) => {
     return data;
 }
 
-export {registerUserService, loginUserService};
+const resetPasswordService = async(oldPassword, newPassword, userId) => {
+    
+    if(oldPassword === newPassword){
+        throw new ApiError(400, "new password must be different from old password")
+    }
+
+   const user = await User.findById(userId);
+   if(!user){
+         throw new ApiError(404, "User not found");
+   }
+
+   const isPasswordCorrect = await user.isPasswordMatched(oldPassword);
+   if(!isPasswordCorrect){
+    throw new ApiError(401, "old password is incorrect");
+   }
+
+   user.password = newPassword;
+   await user.save();
+
+   return user
+}
+
+export {registerUserService, loginUserService, resetPasswordService};
