@@ -35,4 +35,17 @@ const loginValidator = () => {
     ]
 }
 
-export {registerValidator, loginValidator};
+const resetPasswordValidator = () => {
+ return[
+  body("oldPassword")
+    .notEmpty()
+    .withMessage("Old password is required"),
+
+  body("newPassword")
+    .notEmpty()
+    .withMessage("New password is required")
+    .isLength({ min: 8 })
+    .withMessage("New password must be at least 8 characters long")
+];}
+
+export {registerValidator, loginValidator, resetPasswordValidator};
