@@ -66,4 +66,24 @@ const resetPasswordService = async(oldPassword, newPassword, userId) => {
    return user
 }
 
-export {registerUserService, loginUserService, resetPasswordService};
+const updateUserRoleOrStatusService = async (data, userId) => {
+    let updateQuery = data.userRole
+    ? {userRole : data.userRole}
+    : {userStatus : data.userStatus}
+
+    let response = await User.findOneAndUpdate(
+        {_id : userId},
+        updateQuery,
+        {new: true}
+    )
+
+    if(!response){
+        throw new ApiError(404, "No user found for the given id")
+    }
+
+    return response;
+}
+
+export {registerUserService, loginUserService, resetPasswordService,
+    updateUserRoleOrStatusService
+};
