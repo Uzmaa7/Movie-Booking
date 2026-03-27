@@ -13,11 +13,11 @@ movieRouter.post("/create-movie", verifyJWT, isAdminOrClient, createMovieValidat
 
 movieRouter.get("/:id",validateMovieId(), validate, getMovie);
 
-movieRouter.delete("/:id",validateMovieId(), validate,  deleteMovie);
+movieRouter.delete("/:id", verifyJWT, isAdminOrClient, validateMovieId(), validate,  deleteMovie);
 
-movieRouter.put("/:id",validateMovieId(), updateMovieValidator, validate,  updateMovie);
+movieRouter.put("/:id", verifyJWT, isAdminOrClient, validateMovieId(), updateMovieValidator(), validate,  updateMovie);
 
-movieRouter.patch("/:id",validateMovieId(), updateMovieValidator, validate, updateMovie);
+movieRouter.patch("/:id", verifyJWT, isAdminOrClient, validateMovieId(), updateMovieValidator(), validate, updateMovie);
 
 movieRouter.get("/", getMovies)
 export default movieRouter;
