@@ -13,7 +13,7 @@ const theatreRouter = express.Router();
 //CRUD For Theatre
 theatreRouter.post("/create-theatre", verifyJWT, isAdminOrClient, createTheatreValidator(), validate, createTheatre);
 
-theatreRouter.get("/:id", verifyJWT ,idValidator(), validate, getATheatre);
+theatreRouter.get("/:id",idValidator(), validate, getATheatre);
 
 theatreRouter.get("/", getAllTheatres);
 
