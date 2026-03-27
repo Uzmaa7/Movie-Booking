@@ -19,9 +19,9 @@ theatreRouter.get("/", getAllTheatres);
 
 theatreRouter.delete("/:id", verifyJWT, isAdminOrClient, idValidator(), validate, deleteTheatre);
 
-theatreRouter.patch("/:id",idValidator(), validate, updateATheatre);
+theatreRouter.patch("/:id", verifyJWT, isAdminOrClient, idValidator(), validate, updateATheatre);
 
-theatreRouter.put("/:id",idValidator(), validate, updateATheatre);
+theatreRouter.put("/:id", verifyJWT, isAdminOrClient, idValidator(), validate, updateATheatre);
 
 
 //ASSOCIATE MOVIE_THEATRE
