@@ -1,4 +1,4 @@
-import { createBookingService, updateBookingService } from "../services/booking.service.js";
+import { createBookingService, getAllBookingsService, getBookingsService, updateBookingService } from "../services/booking.service.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
@@ -34,4 +34,28 @@ const updateBooking = asyncHandler(async(req, res) => {
     )
 })
 
-export {createBooking, updateBooking };
+const getBookings = asyncHandler(async(req, res) => {
+   
+    const response = await getBookingsService({userId: req.user._id});
+
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            response,
+            response.length === 0 ? "No bookings found for this user" : "Successfully fetched bookings"
+        )
+    )
+})
+
+const getAllBookings = asyncHandler(async(req, res) => {
+    const response = await getAllBookingsService();
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            response,
+            response.length === 0 ? "No bookings found" : "Successfully fetched all the bookings"
+        )
+    )
+})
+
+export {createBooking, updateBooking, getBookings,  getAllBookings };

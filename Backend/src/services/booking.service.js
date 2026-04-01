@@ -31,7 +31,7 @@ const createBookingService = async (data) => {
 
 const updateBookingService = async (data, bookingId) => {
     try {
-        
+
         const response = await Booking.findByIdAndUpdate(
             bookingId,
             data,
@@ -50,4 +50,27 @@ const updateBookingService = async (data, bookingId) => {
     }
 }
 
-export {createBookingService, updateBookingService };
+const getBookingsService = async(data) => {
+    try {
+        const response = await Booking.find({userId : data.userId});
+        return response;
+
+    } catch (error) {
+        console.log("getBookingsService error: ", error);
+        throw new ApiError(500, "Error while fetching user bookings");
+    }
+}
+//only acces by admin
+const getAllBookingsService = async() => {
+    try {
+        const response = await Booking.find();
+        return response;
+    } catch (error) {
+        console.log("getAllBookingsService error: ", error);
+        throw new ApiError(500, "Error while fetching all bookings");
+    
+    }
+}
+
+
+export {createBookingService, updateBookingService, getBookingsService,  getAllBookingsService};
