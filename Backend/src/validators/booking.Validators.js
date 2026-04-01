@@ -22,4 +22,10 @@ const createBookingValidator = () => {
     ]
 }
 
-export {createBookingValidator }
+const updateBookingValidator = () => {
+    return[
+
+    ]
+}
+
+export {createBookingValidator, updateBookingValidator }

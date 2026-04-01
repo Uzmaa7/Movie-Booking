@@ -75,3 +75,12 @@ export const isAdminOrClient = asyncHandler(async(req, res, next) => {
     }
     next();
 })
+
+export const canChangeStatusOfBooking = asyncHandler(async(req, res, next) => {
+    const user = req.user;
+    if(user.userRole === "CUSTOMER" && req.body.status && req.body.status !== "CANCELLED"){
+        throw new ApiError(401, "You are not allowed to change the booking status")
+    }
+
+    next();
+})

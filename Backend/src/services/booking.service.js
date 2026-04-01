@@ -29,4 +29,25 @@ const createBookingService = async (data) => {
     }
 }
 
-export {createBookingService };
+const updateBookingService = async (data, bookingId) => {
+    try {
+        
+        const response = await Booking.findByIdAndUpdate(
+            bookingId,
+            data,
+            {new: true, runValidators: true}
+        )
+
+        if(!response){
+            throw new ApiError(404, "No booking found for the given id")
+        }
+
+        return response;
+
+    } catch (error) {
+        console.log("updateBookingService error: ", error);
+        throw new ApiError(422, "Error while updating booking")
+    }
+}
+
+export {createBookingService, updateBookingService };
