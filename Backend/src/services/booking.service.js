@@ -52,7 +52,7 @@ const updateBookingService = async (data, bookingId) => {
 
 const getBookingsService = async(data) => {
     try {
-        const response = await Booking.find({userId : data.userId});
+        const response = await Booking.find(data);
         return response;
 
     } catch (error) {
@@ -72,5 +72,23 @@ const getAllBookingsService = async() => {
     }
 }
 
+const getBookingByIdService = async(data) => {
 
-export {createBookingService, updateBookingService, getBookingsService,  getAllBookingsService};
+    try {
+        const response = await Booking.findOne({
+            _id: data._id,
+            userId: data.userId
+        })
+        if (!response) {
+            throw new ApiError(404, "Booking not found or you don't have access");
+        }
+        return response
+    } catch (error) {
+        console.log("getBookingByIdService error: ", error);
+        throw new ApiError(500, "Error while fetching a booking");
+    
+    }
+}
+
+
+export {createBookingService, updateBookingService, getBookingsService,  getAllBookingsService, getBookingByIdService};
