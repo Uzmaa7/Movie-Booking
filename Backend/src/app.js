@@ -7,6 +7,7 @@ import {specs} from "./utils/swagger.js"
 // =====Routes imports =====================
 import movieRouter from "./routes/movie.routes.js";
 import theatreRouter from "./routes/theatre.routes.js";
+import bookingRouter from "./routes/booking.routes.js";
 import authRouter from "./routes/auth.routes.js";
 import userRouter from "./routes/user.routes.js";
 
@@ -28,6 +29,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use("/api/v1/movies", movieRouter);
 app.use("/api/v1/theatres", theatreRouter);
+app.use("/api/v1/bookings", bookingRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 
