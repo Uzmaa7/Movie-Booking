@@ -21,4 +21,22 @@ const createShowService = async(data) => {
     }
 }
 
-export {createShowService}
+const getShowsService = async(data) => {
+    let filter = {};
+
+    if(data.theatreId){
+        filter.theatreId = data.theatreId;
+    }
+    if(data.movieId){
+        filter.movieId = data.movieId;
+    }
+    const shows = await Show.find(filter);
+    if(!shows){
+        throw new ApiError(404, "No shows found")
+    }
+
+    return shows;
+
+}
+
+export {createShowService, getShowsService};
